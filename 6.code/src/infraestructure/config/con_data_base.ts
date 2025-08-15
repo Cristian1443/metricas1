@@ -1,27 +1,29 @@
-import dotenv from 'dotenv';
-import { DataSource } from 'typeorm';
-import { UserEntity } from '../entities/UserEntity';
-import env from  '../config/environment-vars'
-export const AppDataSourse = new DataSource({
+import envs from "../config/environment-vars";
+import { DataSource } from "typeorm";
+import { UserEntity } from "../entities/UserEntity";
+ 
+ 
+export const AppDataSource = new DataSource({
     type: "mysql",
-    host: env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: envs.DB_HOST,
+    port: Number(envs.DB_PORT),
+    username: envs.DB_USER,
+    password: envs.DB_PASSWORD,
+    database: envs.DB_NAME,
     synchronize: true,
     logging: true,
-    entities: [UserEntity]
+    entities:[UserEntity]
 });
-
-
-
-export const connectDB = async () => {
+ 
+//Connect to Data Base
+ 
+export const connectDB = async()=>{
     try {
-        await AppDataSourse.initialize();
-        console.error("Database connection.");
+        await AppDataSource.initialize();
+        console.log("Database connected");
     } catch (error) {
-        console.error("Error connecting to the database:", error);
+        console.log("Error connecting to the DB:", error);
         process.exit(1);
     }
 }
+ 

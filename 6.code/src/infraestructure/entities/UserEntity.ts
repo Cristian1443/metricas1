@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({name: "user"})
 export class UserEntity{
 
     @PrimaryGeneratedColumn()
@@ -8,15 +8,10 @@ export class UserEntity{
 
     @Column({type: "varchar", length: 255})
     name_user!: string;
-
     @Column({type: "varchar", length: 255, unique: true})
     email_user!: string;
-
     @Column({type: "varchar", length: 255})
     password_user!: string;
-
     @Column({type: "int"})
     status_user!: number;
-
-
 }
